@@ -18,4 +18,6 @@ A simple python code that accesses the canvas api, authenticates via access key,
 
 -Save and run with the following command: 
 
-      `python3 grade.py` 
+`
+python3 grade.py
+` 
