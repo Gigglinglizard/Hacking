@@ -1,4 +1,6 @@
-##Instructions
+#Instructions
+
+A simple python code that accesses the canvas api, authenticates via access key, retrieves assignment data and calculates a final grade (in %, letter grades can be implemented if needed).
 
 -Clone repository into local system
 
