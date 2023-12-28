@@ -1,14 +1,20 @@
 import os
+import argparse
 
 import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv('API_KEY')
 BASE_URL = 'https://canvas.kth.se/api/v1'
 COURSE_ID = '41678' # EN2720 Ethical Hacking
 
+"""Command line functionality for more direct use."""
+parser = argparse.ArgumentParser(description='API key input for Canvas grade calculator.')
+parser.add_argument('--api_key', type=str, help='Canvas API key.')
+args = parser.parse_args()
+
+API_KEY = args.api_key if args.api_key else os.getenv('API_KEY')
 
 def get(url):
     """Fetch data from the provided URL."""
@@ -43,6 +49,7 @@ def calculate_grade(assignments):
     Calculates the grade for the course.
     Earned points are calculated by fetching score data for each assignment.
     The grade is calculated as the percentage of earned points to total points.
+    A letter grade is also checked and printed depending on the percentage result.
     """
     total_points = 0
     earned_points = 0
@@ -54,10 +61,25 @@ def calculate_grade(assignments):
         if 'score' in submission:
             earned_points += submission['score']
 
-    return (earned_points / total_points) * 100 if total_points else 0
+    percentage = (earned_points / total_points) * 100 if total_points else 0
+
+    if percentage >= 90:
+        letter_grade = 'A'
+    elif percentage >= 70:
+        letter_grade = 'B'
+    elif percentage >= 50:
+        letter_grade = 'C'
+    elif percentage >= 30:
+        letter_grade = 'D'
+    elif percentage >= 20:
+        letter_grade = 'E'
+    else:
+        letter_grade = 'F'
+
+    return percentage, letter_grade
 
 
 assignments = get_all_assignments()
 grade = calculate_grade(assignments)
 
-print(f'My grade for the Ethical Hacking course is: {grade}%')
+print(f'Your grade for the Ethical Hacking course is: {grade[0]}% ({grade[1]})')
