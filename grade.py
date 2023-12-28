@@ -1,8 +1,6 @@
 import os
-import json
 
 import requests
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,13 +14,15 @@ def get(url):
     """Fetch data from the provided URL."""
     response = requests.get(
         url,
-        headers={'Authorization': f'Bearer {API_KEY}'}
-    )
+        headers={'Authorization': f'Bearer {API_KEY}'},
+        timeout=10
+    ) 
     data = response.json()
     while 'next' in response.links.keys():
         response = requests.get(
             response.links['next']['url'],
-            headers={'Authorization': f'Bearer {API_KEY}'}
+            headers={'Authorization': f'Bearer {API_KEY}'},
+            timeout=10  
         )
         data.extend(response.json())
     return data
@@ -61,4 +61,3 @@ assignments = get_all_assignments()
 grade = calculate_grade(assignments)
 
 print(f'My grade for the Ethical Hacking course is: {grade}%')
-
