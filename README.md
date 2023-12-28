@@ -6,7 +6,7 @@ A simple python code that accesses the canvas api, authenticates via access key,
 
 -Clone repository into local system
 
--Create module called 'env.py', inside module should contain the following: 
+-Create file called 'env.py', inside file should contain the following: 
 
 ~~~      
       import os
