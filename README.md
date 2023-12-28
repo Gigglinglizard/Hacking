@@ -6,12 +6,12 @@ A simple python code that accesses the canvas api, authenticates via access key,
 
 -Clone repository into local system
 
--Create file called 'env.py', inside file should contain the following: 
+-Install necessary packages with `pip install -r requirements.txt`
+
+-Create file called '.env', inside file should contain the following: 
 
 ~~~      
-      import os
-
-      os.environ['API_KEY'] = " *Insert your canvas api access key here "
+      API_KEY = " *Insert your canvas api access key here "
 ~~~
 
 *The access key can be created via canvas account settings
