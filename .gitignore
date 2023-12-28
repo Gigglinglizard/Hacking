@@ -1,3 +1,4 @@
 .env
 .venv
+hack/
 __pycache__/
