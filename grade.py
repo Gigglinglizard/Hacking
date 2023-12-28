@@ -3,7 +3,9 @@ import json
 
 import requests
 
-import env
+from dotenv import load_dotenv
+
+load_dotenv()
 
 API_KEY = os.getenv('API_KEY')
 BASE_URL = 'https://canvas.kth.se/api/v1'
