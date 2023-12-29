@@ -1,5 +1,6 @@
 import os
 import argparse
+import sys 
 
 import requests
 from dotenv import load_dotenv
@@ -17,12 +18,19 @@ args = parser.parse_args()
 API_KEY = args.api_key if args.api_key else os.getenv('API_KEY')
 
 def get(url):
-    """Fetch data from the provided URL."""
+    """
+    Fetch data from the provided URL.
+    An error is raised if the API key is invalid.
+    """
     response = requests.get(
         url,
         headers={'Authorization': f'Bearer {API_KEY}'},
         timeout=10
     ) 
+
+    if response.status_code == 401:
+        raise ValueError('Invalid API key.')
+
     data = response.json()
     while 'next' in response.links.keys():
         response = requests.get(
@@ -78,8 +86,12 @@ def calculate_grade(assignments):
 
     return percentage, letter_grade
 
+try:
+    assignments = get_all_assignments()
+except ValueError as e:
+    print(e)
+    sys.exit(1)
 
-assignments = get_all_assignments()
 grade = calculate_grade(assignments)
 
 print(f'Your grade for the Ethical Hacking course is: {grade[0]}% ({grade[1]})')
