@@ -8,6 +8,18 @@ A simple python code that accesses the canvas api, authenticates via access key,
 
 -Install necessary packages with `pip install -r requirements.txt`
 
+## 2 ways to run the code 
+
+### Direct through command-line
+
+-Run using your own Canvas API key with the following command: 
+
+`
+python3 grade.py --api_key YOUR_API_KEY
+`
+
+### Environment Variable 
+
 -Create file called '.env', inside file should contain the following: 
 
 ~~~      
